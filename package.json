@@ -8,12 +8,17 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "server": "webpack-dev-server --mode development",
-    "pretty": "prettier --write \"./src/**/*.{js,json,css,scss,sass}\""
+    "pretty": "prettier --write \"./src/**/*.{ts,js,json,css,scss,sass}\" \"./public/index.html\""
   },
   "browserslist": [
     "last 2 versions",
     "> 1%"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rimarika/ToDo-App.git"
@@ -37,10 +42,18 @@
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "file-loader": "^5.1.0",
+    "husky": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
+    "prettier": "2.1.2",
+    "pretty-quick": "^3.0.2",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.3.0",
     "webpack": "^4.44.2",
