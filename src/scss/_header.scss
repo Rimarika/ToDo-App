@@ -1,0 +1,78 @@
+.todo {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  &__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    line-height: 40px;
+    background-color: $darkcyan-color;
+    color: $gray-lightest-color;
+  }
+
+  &__title {
+    padding: 5px 0;
+    font-size: 2.5rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    &--scroll::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 5px 10px $darkcyan-color;
+    }
+  }
+
+  &__buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    @include box-flex(row, space-between, normal);
+    padding: 10px;
+
+    .todo__trigger {
+      display: block;
+      width: 30px;
+      height: 30px;
+      color: $gray-lightest-color;
+      cursor: pointer;
+    }
+
+    .todo__trigger-ico {
+      display: none;
+
+      &--active {
+        display: block;
+        font-size: 1.5rem;
+        line-height: 26px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .todo {
+    &__header {
+      position: relative;
+      line-height: 50px;
+    }
+
+    &__title {
+      font-size: 3rem;
+    }
+
+    &__buttons {
+      display: none;
+    }
+  }
+}
