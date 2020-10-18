@@ -1,0 +1,109 @@
+.form-box {
+  height: 0;
+  transition: 0.3s;
+
+  @include for-desktop {
+    @include box-flex(row, normal, normal);
+    width: 100%;
+    margin-top: 10px;
+    height: auto;
+  }
+
+  &--active {
+    height: 40px;
+    transition: 0.3s;
+  }
+
+  &__form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include box-flex(row, flex-end, normal);
+    width: 100%;
+    height: 0;
+
+    @include for-desktop {
+      position: relative;
+      height: auto;
+      margin: 10px 20px;
+    }
+
+    &--active {
+      height: 40px;
+
+      .form-box__input {
+        height: 40px;
+        border: 2px solid $darkcyan-color;
+      }
+
+      .form-box__button {
+        height: 40px;
+        line-height: 40px;
+      }
+
+      .form-box__action-ico {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        font-size: 1.5rem;
+        line-height: 20px;
+        text-align: center;
+        transition: 0.3s;
+      }
+    }
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-left: 2%;
+    padding-right: 45px;
+    font-size: 1.5rem;
+    color: $gray-dark-color;
+    transition: 0.3s;
+
+    @include for-desktop {
+      height: 40px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px $gray-medium-color;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 0;
+    margin: 0 5px;
+    cursor: pointer;
+
+    @include for-desktop {
+      height: 40px;
+      line-height: 40px;
+      transition: 0.3s;
+    }
+
+    &:hover {
+      .form-box__action-ico {
+        border-radius: 50%;
+        background-color: $gray-light-color;
+      }
+    }
+  }
+
+  &__action-ico {
+    color: $gray-dark-color;
+    font-size: 0;
+
+    @include for-desktop {
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      font-size: 1.5rem;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+}
