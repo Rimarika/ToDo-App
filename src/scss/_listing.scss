@@ -1,18 +1,25 @@
-.todo {
-  &__list-container {
-    @include box-flex(column, normal, normal);
-    margin: 20px 10px 0;
+.listing {
+  @include box-flex(column, normal, normal);
+  margin: 20px 10px 0;
+
+  @include for-desktop {
+    @include box-flex(row, space-between, normal);
+    margin: 20px;
   }
 
-  &__list-wrapper {
+  &__list-box {
     height: min-content;
     margin-bottom: 20px;
     background-color: $white-color;
     border-radius: 5px;
     border: 1px solid $gray-medium-color;
+
+    @include for-desktop {
+      flex-basis: 48%;
+    }
   }
 
-  &__list-title {
+  &__title {
     position: relative;
     padding: 5px 0;
     font-size: 2rem;
@@ -21,8 +28,7 @@
     border-bottom: 1px solid $gray-medium-color;
   }
 
-  &__todo-list,
-  &__done-list {
+  &__list {
     min-height: 50px;
     margin: 5px;
 
@@ -34,19 +40,6 @@
       border-radius: 4px;
       font-size: 1.6rem;
       line-height: 25px;
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .todo {
-    &__list-container {
-      @include box-flex(row, space-between, normal);
-      margin: 20px;
-    }
-
-    &__list-wrapper {
-      flex-basis: 48%;
     }
   }
 }

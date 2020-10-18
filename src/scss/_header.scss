@@ -1,17 +1,16 @@
-.todo {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+  line-height: 40px;
+  background-color: $darkcyan-color;
+  color: $gray-lightest-color;
 
-  &__header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 5;
-    line-height: 40px;
-    background-color: $darkcyan-color;
-    color: $gray-lightest-color;
+  @include for-desktop {
+    position: relative;
+    line-height: 50px;
   }
 
   &__title {
@@ -19,6 +18,10 @@
     font-size: 2.5rem;
     text-align: center;
     text-transform: uppercase;
+
+    @include for-desktop {
+      font-size: 3rem;
+    }
 
     &--scroll::before {
       content: '';
@@ -30,7 +33,7 @@
     }
   }
 
-  &__buttons {
+  &__buttons-box {
     position: absolute;
     top: 0;
     left: 0;
@@ -39,7 +42,11 @@
     @include box-flex(row, space-between, normal);
     padding: 10px;
 
-    .todo__trigger {
+    @include for-desktop {
+      display: none;
+    }
+
+    .header__trigger {
       display: block;
       width: 30px;
       height: 30px;
@@ -47,7 +54,7 @@
       cursor: pointer;
     }
 
-    .todo__trigger-ico {
+    .header__trigger-ico {
       display: none;
 
       &--active {
@@ -56,23 +63,6 @@
         line-height: 26px;
         text-align: center;
       }
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .todo {
-    &__header {
-      position: relative;
-      line-height: 50px;
-    }
-
-    &__title {
-      font-size: 3rem;
-    }
-
-    &__buttons {
-      display: none;
     }
   }
 }
