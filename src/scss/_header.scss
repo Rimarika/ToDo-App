@@ -45,24 +45,24 @@
     @include for-desktop {
       display: none;
     }
+  }
 
-    .header__trigger {
+  &__trigger {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: $gray-lightest-color;
+    cursor: pointer;
+  }
+
+  &__trigger-ico {
+    display: none;
+
+    &--active {
       display: block;
-      width: 30px;
-      height: 30px;
-      color: $gray-lightest-color;
-      cursor: pointer;
-    }
-
-    .header__trigger-ico {
-      display: none;
-
-      &--active {
-        display: block;
-        font-size: 1.5rem;
-        line-height: 26px;
-        text-align: center;
-      }
+      font-size: 1.5rem;
+      line-height: 26px;
+      text-align: center;
     }
   }
 }

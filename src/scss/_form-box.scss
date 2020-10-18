@@ -28,60 +28,6 @@
       margin: 10px 20px;
     }
 
-    .form-box__input {
-      display: block;
-      width: 100%;
-      height: 0;
-      padding-left: 2%;
-      padding-right: 45px;
-      font-size: 1.5rem;
-      color: $gray-dark-color;
-      transition: 0.3s;
-
-      @include for-desktop {
-        height: 40px;
-        border-radius: 5px;
-        box-shadow: 2px 2px 5px $gray-medium-color;
-      }
-    }
-
-    .form-box__button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 30px;
-      height: 0;
-      margin: 0 5px;
-      cursor: pointer;
-
-      @include for-desktop {
-        height: 40px;
-        line-height: 40px;
-        transition: 0.3s;
-      }
-
-      &:hover {
-        .form-box__action-ico {
-          border-radius: 50%;
-          background-color: $gray-light-color;
-        }
-      }
-    }
-
-    .form-box__action-ico {
-      color: $gray-dark-color;
-      font-size: 0;
-
-      @include for-desktop {
-        width: 30px;
-        height: 30px;
-        padding: 5px;
-        font-size: 1.5rem;
-        line-height: 20px;
-        text-align: center;
-      }
-    }
-
     &--active {
       height: 40px;
 
@@ -104,6 +50,60 @@
         text-align: center;
         transition: 0.3s;
       }
+    }
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-left: 2%;
+    padding-right: 45px;
+    font-size: 1.5rem;
+    color: $gray-dark-color;
+    transition: 0.3s;
+
+    @include for-desktop {
+      height: 40px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px $gray-medium-color;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 0;
+    margin: 0 5px;
+    cursor: pointer;
+
+    @include for-desktop {
+      height: 40px;
+      line-height: 40px;
+      transition: 0.3s;
+    }
+
+    &:hover {
+      .form-box__action-ico {
+        border-radius: 50%;
+        background-color: $gray-light-color;
+      }
+    }
+  }
+
+  &__action-ico {
+    color: $gray-dark-color;
+    font-size: 0;
+
+    @include for-desktop {
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      font-size: 1.5rem;
+      line-height: 20px;
+      text-align: center;
     }
   }
 }
