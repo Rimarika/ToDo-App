@@ -1,9 +1,4 @@
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 5;
   line-height: 40px;
   background-color: $darkcyan-color;
   color: $gray-lightest-color;
@@ -21,15 +16,6 @@
 
     @include for-desktop {
       font-size: 3rem;
-    }
-
-    &--scroll::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      box-shadow: 0 5px 10px $darkcyan-color;
     }
   }
 
@@ -58,7 +44,7 @@
   &__trigger-ico {
     display: none;
 
-    &--active {
+    &[data-state='active'] {
       display: block;
       font-size: 1.5rem;
       line-height: 26px;
