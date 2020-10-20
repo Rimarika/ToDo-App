@@ -21,9 +21,7 @@ addButton.addEventListener('click', () => {
   addIconClose.classList.toggle(addIconClose.dataset.classToggle);
   searchIcon.classList.add(searchIcon.dataset.classToggle);
   searchIconClose.classList.remove(searchIconClose.dataset.classToggle);
-  formSearch.classList.contains(formSearch.dataset.classToggle)
-    ? null
-    : formBox.classList.toggle(formBox.dataset.classToggle);
+  formSearch.classList.contains(formSearch.dataset.classToggle) ? null : formBox.classList.toggle(formBox.dataset.classToggle);
   formAdd.classList.toggle(formAdd.dataset.classToggle);
   formSearch.classList.remove(formSearch.dataset.classToggle);
 });
@@ -33,9 +31,7 @@ searchButton.addEventListener('click', () => {
   addIconClose.classList.remove(addIconClose.dataset.classToggle);
   searchIcon.classList.toggle(searchIcon.dataset.classToggle);
   searchIconClose.classList.toggle(searchIconClose.dataset.classToggle);
-  formAdd.classList.contains(formAdd.dataset.classToggle)
-    ? null
-    : formBox.classList.toggle(formBox.dataset.classToggle);
+  formAdd.classList.contains(formAdd.dataset.classToggle) ? null : formBox.classList.toggle(formBox.dataset.classToggle);
   formAdd.classList.remove(formAdd.dataset.classToggle);
   formSearch.classList.toggle(formSearch.dataset.classToggle);
 });
