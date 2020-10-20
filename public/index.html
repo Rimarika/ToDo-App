@@ -12,25 +12,41 @@
       <header class="header">
         <h1 class="header__title">to-do list</h1>
         <div class="header__buttons-box">
-          <div class="header__trigger header__trigger--add">
-            <i class="header__trigger-ico header__trigger-ico--add fas fa-plus"></i>
-            <i class="header__trigger-ico header__trigger-ico--add-close fas fa-times"></i>
+          <div id="addButton" class="header__trigger header__trigger--add">
+            <i id="addIcon" class="header__trigger-ico fas fa-plus" data-class-toggle="header__trigger-ico--active"></i>
+            <i
+              id="addIconClose"
+              class="header__trigger-ico fas fa-times"
+              data-class-toggle="header__trigger-ico--active"
+            ></i>
           </div>
-          <div class="header__trigger header__trigger--search">
-            <i class="header__trigger-ico header__trigger-ico--search fas fa-search"></i>
-            <i class="header__trigger-ico header__trigger-ico--search-close fas fa-times"></i>
+          <div id="searchButton" class="header__trigger header__trigger--search">
+            <i
+              id="searchIcon"
+              class="header__trigger-ico fas fa-search"
+              data-class-toggle="header__trigger-ico--active"
+            ></i>
+            <i
+              id="searchIconClose"
+              class="header__trigger-ico fas fa-times"
+              data-class-toggle="header__trigger-ico--active"
+            ></i>
           </div>
         </div>
       </header>
       <main class="main">
-        <div class="form-box">
-          <form class="form-box__form form-box__form--add">
+        <div id="formBox" class="form-box" data-class-toggle="form-box--active">
+          <form id="formAdd" class="form-box__form form-box__form--add" data-class-toggle="form-box__form--active">
             <input class="form-box__input form-box__input--add" type="text" placeholder="Add new task..." />
             <button type="submit" class="form-box__button form-box__button--add">
               <i class="form-box__action-ico fas fa-plus"></i>
             </button>
           </form>
-          <form class="form-box__form form-box__form--search">
+          <form
+            id="formSearch"
+            class="form-box__form form-box__form--search"
+            data-class-toggle="form-box__form--active"
+          >
             <input class="form-box__input form-box__input--search" type="text" placeholder="Search..." />
             <button type="submit" class="form-box__button form-box__button--search">
               <i class="form-box__action-ico fas fa-search"></i>

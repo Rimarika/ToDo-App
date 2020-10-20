@@ -9,7 +9,7 @@
     height: auto;
   }
 
-  &[data-state='active'] {
+  &--active {
     height: 40px;
     transition: 0.3s;
   }
@@ -28,7 +28,7 @@
       margin: 10px 20px;
     }
 
-    &[data-state='active'] {
+    &--active {
       height: 40px;
 
       .form-box__input {

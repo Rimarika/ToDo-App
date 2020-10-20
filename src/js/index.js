@@ -1,63 +1,49 @@
 import '../scss/style.scss';
 
-const addButton = document.querySelector('.header__trigger--add');
-const searchButton = document.querySelector('.header__trigger--search');
+const addButton = document.getElementById('addButton');
+const searchButton = document.getElementById('searchButton');
 
-const addIcon = document.querySelector('.header__trigger-ico--add');
-const addIconClose = document.querySelector('.header__trigger-ico--add-close');
-const searchIcon = document.querySelector('.header__trigger-ico--search');
-const searchIconClose = document.querySelector('.header__trigger-ico--search-close');
-const formBox = document.querySelector('.form-box');
-const formAdd = document.querySelector('.form-box__form--add');
-const formSearch = document.querySelector('.form-box__form--search');
+const addIcon = document.getElementById('addIcon');
+const addIconClose = document.getElementById('addIconClose');
+const searchIcon = document.getElementById('searchIcon');
+const searchIconClose = document.getElementById('searchIconClose');
+const formBox = document.getElementById('formBox');
+const formAdd = document.getElementById('formAdd');
+const formSearch = document.getElementById('formSearch');
 
-const state = {
-  showAddTask: false,
-  showSearchTask: false,
-};
-
-const toggleAdd = () => {
-  state.showAddTask = !state.showAddTask;
-  state.showSearchTask = false;
-};
-
-const toggleSearch = () => {
-  state.showAddTask = false;
-  state.showSearchTask = !state.showSearchTask;
-};
-
-const setDataState = (element, state) => {
-  element.setAttribute('data-state', state === true ? 'active' : 'inactive');
-};
-
-const prepareToggleElements = () => {
-  setDataState(addIcon, !state.showAddTask);
-  setDataState(addIconClose, state.showAddTask);
-  setDataState(formAdd, state.showAddTask);
-  setDataState(searchIcon, !state.showSearchTask);
-  setDataState(searchIconClose, state.showSearchTask);
-  setDataState(formSearch, state.showSearchTask);
-};
+window.addEventListener('load', () => {
+  addIcon.classList.add(addIcon.dataset.classToggle);
+  searchIcon.classList.add(searchIcon.dataset.classToggle);
+});
 
 addButton.addEventListener('click', () => {
-  toggleAdd();
-  prepareToggleElements();
-  setDataState(formBox, state.showAddTask);
+  addIcon.classList.toggle(addIcon.dataset.classToggle);
+  addIconClose.classList.toggle(addIconClose.dataset.classToggle);
+  searchIcon.classList.add(searchIcon.dataset.classToggle);
+  searchIconClose.classList.remove(searchIconClose.dataset.classToggle);
+  formSearch.classList.contains(formSearch.dataset.classToggle)
+    ? null
+    : formBox.classList.toggle(formBox.dataset.classToggle);
+  formAdd.classList.toggle(formAdd.dataset.classToggle);
+  formSearch.classList.remove(formSearch.dataset.classToggle);
 });
 
 searchButton.addEventListener('click', () => {
-  toggleSearch();
-  prepareToggleElements();
-  setDataState(formBox, state.showSearchTask);
+  addIcon.classList.add(addIcon.dataset.classToggle);
+  addIconClose.classList.remove(addIconClose.dataset.classToggle);
+  searchIcon.classList.toggle(searchIcon.dataset.classToggle);
+  searchIconClose.classList.toggle(searchIconClose.dataset.classToggle);
+  formAdd.classList.contains(formAdd.dataset.classToggle)
+    ? null
+    : formBox.classList.toggle(formBox.dataset.classToggle);
+  formAdd.classList.remove(formAdd.dataset.classToggle);
+  formSearch.classList.toggle(formSearch.dataset.classToggle);
 });
 
 window.addEventListener('resize', () => {
   if (window.innerWidth >= 768) {
-    state.showAddTask = false;
-    state.showSearchTask = false;
-    prepareToggleElements();
-    setDataState(formBox, false);
+    formBox.classList.remove(formBox.dataset.classToggle);
+    formAdd.classList.remove(formAdd.dataset.classToggle);
+    formSearch.classList.remove(formSearch.dataset.classToggle);
   }
 });
-
-prepareToggleElements();

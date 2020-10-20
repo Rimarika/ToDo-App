@@ -44,7 +44,7 @@
   &__trigger-ico {
     display: none;
 
-    &[data-state='active'] {
+    &--active {
       display: block;
       font-size: 1.5rem;
       line-height: 26px;
