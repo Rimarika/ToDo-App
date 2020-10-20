@@ -1,4 +1,5 @@
 import '../scss/style.scss';
+import { addClass, removeClass, toggleClass } from './utils';
 
 const addButton = document.getElementById('addButton');
 const searchButton = document.getElementById('searchButton');
@@ -12,34 +13,27 @@ const formAdd = document.getElementById('formAdd');
 const formSearch = document.getElementById('formSearch');
 
 window.addEventListener('load', () => {
-  addIcon.classList.add(addIcon.dataset.classToggle);
-  searchIcon.classList.add(searchIcon.dataset.classToggle);
+  [addIcon, searchIcon].forEach((element) => addClass(element));
 });
 
 addButton.addEventListener('click', () => {
-  addIcon.classList.toggle(addIcon.dataset.classToggle);
-  addIconClose.classList.toggle(addIconClose.dataset.classToggle);
-  searchIcon.classList.add(searchIcon.dataset.classToggle);
-  searchIconClose.classList.remove(searchIconClose.dataset.classToggle);
-  formSearch.classList.contains(formSearch.dataset.classToggle) ? null : formBox.classList.toggle(formBox.dataset.classToggle);
-  formAdd.classList.toggle(formAdd.dataset.classToggle);
-  formSearch.classList.remove(formSearch.dataset.classToggle);
+  [addIcon, addIconClose, formAdd, !formSearch.classList.contains(formSearch.dataset.classToggle) && formBox]
+    .filter(Boolean)
+    .forEach((element) => toggleClass(element));
+  addClass(searchIcon);
+  [searchIconClose, formSearch].forEach((element) => removeClass(element));
 });
 
 searchButton.addEventListener('click', () => {
-  addIcon.classList.add(addIcon.dataset.classToggle);
-  addIconClose.classList.remove(addIconClose.dataset.classToggle);
-  searchIcon.classList.toggle(searchIcon.dataset.classToggle);
-  searchIconClose.classList.toggle(searchIconClose.dataset.classToggle);
-  formAdd.classList.contains(formAdd.dataset.classToggle) ? null : formBox.classList.toggle(formBox.dataset.classToggle);
-  formAdd.classList.remove(formAdd.dataset.classToggle);
-  formSearch.classList.toggle(formSearch.dataset.classToggle);
+  [searchIcon, searchIconClose, formSearch, !formAdd.classList.contains(formAdd.dataset.classToggle) && formBox]
+    .filter(Boolean)
+    .forEach((element) => toggleClass(element));
+  addClass(addIcon);
+  [addIconClose, formAdd].forEach((element) => removeClass(element));
 });
 
 window.addEventListener('resize', () => {
   if (window.innerWidth >= 768) {
-    formBox.classList.remove(formBox.dataset.classToggle);
-    formAdd.classList.remove(formAdd.dataset.classToggle);
-    formSearch.classList.remove(formSearch.dataset.classToggle);
+    [formBox, formAdd, formSearch].forEach((element) => removeClass(element));
   }
 });
