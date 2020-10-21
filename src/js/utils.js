@@ -1,14 +1,14 @@
-export const addClass = (element) => {
-  const classToggle = element.dataset.classToggle;
-  element.classList.add(classToggle);
+export const addClass = ({ dataset, classList }) => {
+  const { classToggle } = dataset;
+  classList.add(classToggle);
 };
 
-export const removeClass = (element) => {
-  const classToggle = element.dataset.classToggle;
-  element.classList.remove(classToggle);
+export const removeClass = ({ dataset, classList }) => {
+  const { classToggle } = dataset;
+  classList.remove(classToggle);
 };
 
-export const toggleClass = (element) => {
-  const classToggle = element.dataset.classToggle;
-  element.classList.toggle(classToggle);
+export const toggleClass = ({ dataset, classList }) => {
+  const { classToggle } = dataset;
+  classList.toggle(classToggle);
 };

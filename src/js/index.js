@@ -13,27 +13,24 @@ const formAdd = document.getElementById('formAdd');
 const formSearch = document.getElementById('formSearch');
 
 window.addEventListener('load', () => {
-  [addIcon, searchIcon].forEach((element) => addClass(element));
+  [addIcon, searchIcon].forEach(addClass);
 });
 
 addButton.addEventListener('click', () => {
-  [addIcon, addIconClose, formAdd, !formSearch.classList.contains(formSearch.dataset.classToggle) && formBox]
-    .filter(Boolean)
-    .forEach((element) => toggleClass(element));
+  [addIcon, addIconClose, formAdd, !formSearch.classList.contains(formSearch.dataset.classToggle) && formBox].filter(Boolean).forEach(toggleClass);
   addClass(searchIcon);
-  [searchIconClose, formSearch].forEach((element) => removeClass(element));
+  [searchIconClose, formSearch].forEach(removeClass);
 });
 
 searchButton.addEventListener('click', () => {
-  [searchIcon, searchIconClose, formSearch, !formAdd.classList.contains(formAdd.dataset.classToggle) && formBox]
-    .filter(Boolean)
-    .forEach((element) => toggleClass(element));
+  [searchIcon, searchIconClose, formSearch, !formAdd.classList.contains(formAdd.dataset.classToggle) && formBox].filter(Boolean).forEach(toggleClass);
   addClass(addIcon);
-  [addIconClose, formAdd].forEach((element) => removeClass(element));
+  [addIconClose, formAdd].forEach(removeClass);
 });
 
 window.addEventListener('resize', () => {
   if (window.innerWidth >= 768) {
-    [formBox, formAdd, formSearch].forEach((element) => removeClass(element));
+    [addIcon, searchIcon].forEach(addClass);
+    [addIconClose, searchIconClose, formBox, formAdd, formSearch].forEach(removeClass);
   }
 });
