@@ -31,15 +31,54 @@
   &__list {
     min-height: 50px;
     margin: 5px;
+  }
 
-    li {
-      min-height: 25px;
-      margin: 5px 0;
-      padding: 3px 5px;
-      border: 1px solid $gray-medium-color;
-      border-radius: 4px;
-      font-size: 1.6rem;
-      line-height: 25px;
+  &__item {
+    display: flex;
+    position: relative;
+    min-height: 30px;
+    margin: 5px 0;
+    padding: 3px 5px;
+    border: 1px solid $gray-medium-color;
+    border-radius: 4px;
+    font-size: 1.6rem;
+  }
+
+  &__item-checkbox {
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    height: 15px;
+    width: 15px;
+    color: $darkgreen-color;
+    cursor: pointer;
+
+    &:checked:before {
+      content: 'L';
+      position: absolute;
+      top: -4px;
+      left: -1px;
+      height: 15px;
+      width: 15px;
+      font-weight: bold;
+      font-size: 15px;
+      transform: scale(-1, 1) rotate(-45deg);
     }
+
+    &:after {
+      content: '';
+      display: block;
+      height: 15px;
+      width: 15px;
+      background-color: white;
+      border: 1px solid $gray-dark-color;
+    }
+  }
+
+  &__item-name {
+    flex-grow: 1;
+    padding: 0 10px 0 20px;
+    font-size: 1.6rem;
+    line-height: 25px;
   }
 }

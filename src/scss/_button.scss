@@ -1,0 +1,29 @@
+.button-box {
+  width: 30px;
+  height: 30px;
+  margin: 0 2px;
+  line-height: 30px;
+  vertical-align: top;
+  cursor: pointer;
+
+  &:hover {
+    .button-box__action-ico {
+      border-radius: 50%;
+      background-color: $gray-light-color;
+    }
+  }
+
+  &__action-ico {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    font-size: 1.5rem;
+    line-height: 20px;
+    text-align: center;
+    color: $gray-dark-color;
+
+    &.fa-check {
+      color: $darkgreen-color;
+    }
+  }
+}
