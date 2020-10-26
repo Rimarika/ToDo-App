@@ -16,8 +16,7 @@ export const toggleClass = ({ dataset, classList }) => {
 export const renderTasks = (data, container) => {
   container.textContent = '';
 
-  data.forEach(({ name, isEdited, completed }, key) => {
-    const id = `task-${key}`;
+  data.forEach(({ name, isEdited, isCompleted }, key) => {
     const form = `<form id="formEdit" class="edit-box">
         <input class="edit-box__input" type="text" value="${name}"/>
         <div class="edit-box__buttons" data-task-key="${key}">
@@ -30,11 +29,11 @@ export const renderTasks = (data, container) => {
         </div>
       </form>`;
 
-    const element = `<li id="${id}" class="listing__item" data-task-key="${key}">
+    const element = `<li class="listing__item" data-task-key="${key}">
       ${
         isEdited
           ? form
-          : `<input type="checkbox" class="listing__item-checkbox" data-action="status" ${completed ? 'checked' : ''}>
+          : `<input type="checkbox" class="listing__item-checkbox" data-action="status" ${isCompleted ? 'checked' : ''}>
         <label class="listing__item-name">${name}</label>
         <div class="button-box">
           <i class="button-box__action-ico fas fa-edit" data-action="edit"></i>

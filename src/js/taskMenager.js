@@ -29,7 +29,7 @@ export default class TaskMenager {
     this.todoTasks.push({
       name,
       isEdited: false,
-      completed: false,
+      isCompleted: false,
     });
     this.setStoredState();
   };
@@ -56,8 +56,13 @@ export default class TaskMenager {
   editTask = (task, taskType) => {
     const { todoTasks, doneTasks } = this;
     const key = task.dataset.taskKey;
+    const tasks = this.getTasks(taskType);
 
-    this.getTasks(taskType).forEach((element, index) => {
+    [...todoTasks, ...doneTasks].forEach((element) => {
+      element.isEdited = false;
+    });
+
+    tasks.forEach((element, index) => {
       if (index == key) {
         element.isEdited = true;
       } else {
@@ -65,41 +70,27 @@ export default class TaskMenager {
       }
     });
 
-    [
-      { type: todoType, data: todoTasks },
-      { type: doneType, data: doneTasks },
-    ]
-      .filter(({ type }) => taskType !== type)
-      .map(({ data }) => data)
-      .shift()
-      .forEach((element) => {
-        element.isEdited = false;
-      });
-
     this.setStoredState();
   };
 
   changeStatusTask = (task, taskType) => {
     const { todoTasks, doneTasks } = this;
     const key = task.dataset.taskKey;
+    const tasks = this.getTasks(taskType);
 
-    const element = this.getTasks(taskType)[key];
-    const { name, isEdited, completed } = element;
+    const element = tasks[key];
+    const { name, isEdited, isCompleted } = element;
 
-    this.getTasks(taskType).splice(key, 1);
+    tasks.splice(key, 1);
 
-    [
-      { type: todoType, data: todoTasks },
-      { type: doneType, data: doneTasks },
-    ]
-      .filter(({ type }) => taskType !== type)
-      .map(({ data }) => data)
-      .shift()
-      .push({
-        name,
-        isEdited,
-        completed: !completed,
-      });
+    const replacedTask = {
+      name,
+      isEdited,
+      isCompleted: !isCompleted,
+    };
+
+    tasks !== todoTasks && todoTasks.push(replacedTask);
+    tasks !== doneTasks && doneTasks.push(replacedTask);
 
     this.setStoredState();
   };
