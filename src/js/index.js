@@ -51,6 +51,15 @@ formAdd.addEventListener('submit', (e) => {
   input.value = '';
 });
 
+formSearch.addEventListener('input', (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    taskMenager.searchTasks(e.target.value);
+    renderTasks(taskMenager.todoTasks, todoListing);
+    renderTasks(taskMenager.doneTasks, doneListing);
+  }, 800);
+});
+
 todoListing.addEventListener('click', (e) => {
   const action = e.target.dataset.action;
 

@@ -110,6 +110,13 @@ export default class TaskMenager {
 
     this.setStoredState();
   };
+
+  searchTasks = (searchText) => {
+    this.getStoredState();
+    let { todoTasks, doneTasks } = this;
+    this.todoTasks = todoTasks.filter(({ name }) => name.toLowerCase().includes(searchText.toLowerCase()));
+    this.doneTasks = doneTasks.filter(({ name }) => name.toLowerCase().includes(searchText.toLowerCase()));
+  };
 }
 
 export { todoType, doneType };
