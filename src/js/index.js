@@ -17,6 +17,8 @@ const formSearch = document.getElementById('formSearch');
 const todoListing = document.getElementById('todoListing');
 const doneListing = document.getElementById('doneListing');
 
+let timeout = null;
+
 window.addEventListener('load', () => {
   [addIcon, searchIcon].forEach(addClass);
   renderTasks(taskMenager.todoTasks, todoListing);
@@ -53,10 +55,12 @@ formAdd.addEventListener('submit', (e) => {
 
 formSearch.addEventListener('input', (e) => {
   e.preventDefault();
-  setTimeout(() => {
-    taskMenager.searchTasks(e.target.value);
-    renderTasks(taskMenager.todoTasks, todoListing);
-    renderTasks(taskMenager.doneTasks, doneListing);
+  clearTimeout(timeout);
+
+  timeout = setTimeout(() => {
+    const { matchedTodoTasks, matchedDoneTasks } = taskMenager.getMatchedTasks(e.target.value);
+    renderTasks(matchedTodoTasks, todoListing);
+    renderTasks(matchedDoneTasks, doneListing);
   }, 800);
 });
 
