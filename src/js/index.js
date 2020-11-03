@@ -16,6 +16,8 @@ const formAdd = document.getElementById('formAdd');
 const formSearch = document.getElementById('formSearch');
 const todoListing = document.getElementById('todoListing');
 const doneListing = document.getElementById('doneListing');
+const searchTextButton = document.getElementById('searchTextButton');
+const deleteTextButton = document.getElementById('deleteTextButton');
 
 let timeout = null;
 
@@ -47,14 +49,18 @@ searchButton.addEventListener('click', () => {
 formAdd.addEventListener('submit', (e) => {
   e.preventDefault();
   const [input] = e.target.elements;
+  if (input.value === '') return;
 
   taskMenager.addTask(input.value);
   renderTasks(taskMenager.todoTasks, todoListing);
   input.value = '';
 });
 
-formSearch.addEventListener('input', (e) => {
+formSearch.addEventListener('submit', (e) => {
   e.preventDefault();
+});
+
+formSearch.addEventListener('input', (e) => {
   clearTimeout(timeout);
 
   timeout = setTimeout(() => {
@@ -62,6 +68,23 @@ formSearch.addEventListener('input', (e) => {
     renderTasks(matchedTodoTasks, todoListing);
     renderTasks(matchedDoneTasks, doneListing);
   }, 800);
+
+  if (e.target.value !== '') {
+    searchTextButton.style.display = 'none';
+    deleteTextButton.style.display = 'inline-block';
+  } else {
+    searchTextButton.style.display = 'inline-block';
+    deleteTextButton.style.display = 'none';
+  }
+});
+
+deleteTextButton.addEventListener('click', (e) => {
+  const input = e.target.parentNode.parentNode.querySelector('.form-box__input');
+  input.value = '';
+
+  const { matchedTodoTasks, matchedDoneTasks } = taskMenager.getMatchedTasks(input.value);
+  renderTasks(matchedTodoTasks, todoListing);
+  renderTasks(matchedDoneTasks, doneListing);
 });
 
 todoListing.addEventListener('click', (e) => {
