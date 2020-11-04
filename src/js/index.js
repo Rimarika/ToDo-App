@@ -1,6 +1,7 @@
 import '../scss/style.scss';
 import { addClass, removeClass, toggleClass, renderTasks } from './utils';
 import TaskMenager, { todoType, doneType } from './taskMenager';
+import { data } from 'autoprefixer';
 
 const taskMenager = new TaskMenager();
 
@@ -16,8 +17,8 @@ const formAdd = document.getElementById('formAdd');
 const formSearch = document.getElementById('formSearch');
 const todoListing = document.getElementById('todoListing');
 const doneListing = document.getElementById('doneListing');
-const searchTextButton = document.getElementById('searchTextButton');
-const deleteTextButton = document.getElementById('deleteTextButton');
+const formSearchButton = document.getElementById('formSearchButton');
+const formSearchIco = document.getElementById('formSearchIco');
 
 let timeout = null;
 
@@ -48,16 +49,12 @@ searchButton.addEventListener('click', () => {
 
 formAdd.addEventListener('submit', (e) => {
   e.preventDefault();
-  const [input] = e.target.elements;
+  const [input] = formAdd.elements;
   if (input.value === '') return;
 
   taskMenager.addTask(input.value);
   renderTasks(taskMenager.todoTasks, todoListing);
   input.value = '';
-});
-
-formSearch.addEventListener('submit', (e) => {
-  e.preventDefault();
 });
 
 formSearch.addEventListener('input', (e) => {
@@ -69,22 +66,25 @@ formSearch.addEventListener('input', (e) => {
     renderTasks(matchedDoneTasks, doneListing);
   }, 800);
 
+  const { dataset, classList } = formSearchIco;
+  const { searchClass, timesClass } = dataset;
+
   if (e.target.value !== '') {
-    searchTextButton.style.display = 'none';
-    deleteTextButton.style.display = 'inline-block';
+    classList.add(timesClass);
+    classList.remove(searchClass);
   } else {
-    searchTextButton.style.display = 'inline-block';
-    deleteTextButton.style.display = 'none';
+    classList.add(searchClass);
+    classList.remove(timesClass);
   }
 });
 
-deleteTextButton.addEventListener('click', (e) => {
-  const input = e.target.parentNode.parentNode.querySelector('.form-box__input');
-  input.value = '';
+formSearchButton.addEventListener('click', () => {
+  const [input] = formSearch.elements;
+  if (input.value === '') return;
 
-  const { matchedTodoTasks, matchedDoneTasks } = taskMenager.getMatchedTasks(input.value);
-  renderTasks(matchedTodoTasks, todoListing);
-  renderTasks(matchedDoneTasks, doneListing);
+  input.value = '';
+  renderTasks(taskMenager.todoTasks, todoListing);
+  renderTasks(taskMenager.doneTasks, doneListing);
 });
 
 todoListing.addEventListener('click', (e) => {
