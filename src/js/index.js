@@ -1,6 +1,7 @@
 import '../scss/style.scss';
 import { addClass, removeClass, toggleClass, renderTasks } from './utils';
 import TaskMenager, { todoType, doneType } from './taskMenager';
+import { data } from 'autoprefixer';
 
 const taskMenager = new TaskMenager();
 
@@ -16,6 +17,10 @@ const formAdd = document.getElementById('formAdd');
 const formSearch = document.getElementById('formSearch');
 const todoListing = document.getElementById('todoListing');
 const doneListing = document.getElementById('doneListing');
+const formSearchButton = document.getElementById('formSearchButton');
+const formSearchIco = document.getElementById('formSearchIco');
+
+let timeout = null;
 
 window.addEventListener('load', () => {
   [addIcon, searchIcon].forEach(addClass);
@@ -44,11 +49,42 @@ searchButton.addEventListener('click', () => {
 
 formAdd.addEventListener('submit', (e) => {
   e.preventDefault();
-  const [input] = e.target.elements;
+  const [input] = formAdd.elements;
+  if (input.value === '') return;
 
   taskMenager.addTask(input.value);
   renderTasks(taskMenager.todoTasks, todoListing);
   input.value = '';
+});
+
+formSearch.addEventListener('input', (e) => {
+  clearTimeout(timeout);
+
+  timeout = setTimeout(() => {
+    const { matchedTodoTasks, matchedDoneTasks } = taskMenager.getMatchedTasks(e.target.value);
+    renderTasks(matchedTodoTasks, todoListing);
+    renderTasks(matchedDoneTasks, doneListing);
+  }, 800);
+
+  const { dataset, classList } = formSearchIco;
+  const { searchClass, timesClass } = dataset;
+
+  if (e.target.value !== '') {
+    classList.add(timesClass);
+    classList.remove(searchClass);
+  } else {
+    classList.add(searchClass);
+    classList.remove(timesClass);
+  }
+});
+
+formSearchButton.addEventListener('click', () => {
+  const [input] = formSearch.elements;
+  if (input.value === '') return;
+
+  input.value = '';
+  renderTasks(taskMenager.todoTasks, todoListing);
+  renderTasks(taskMenager.doneTasks, doneListing);
 });
 
 todoListing.addEventListener('click', (e) => {
