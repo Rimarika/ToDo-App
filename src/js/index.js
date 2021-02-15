@@ -1,7 +1,6 @@
 import '../scss/style.scss';
 import { addClass, removeClass, toggleClass, renderTasks } from './utils';
 import TaskMenager, { todoType, doneType } from './taskMenager';
-import { data } from 'autoprefixer';
 
 const taskMenager = new TaskMenager();
 
@@ -20,7 +19,12 @@ const doneListing = document.getElementById('doneListing');
 const formSearchButton = document.getElementById('formSearchButton');
 const formSearchIco = document.getElementById('formSearchIco');
 
+const listing = document.getElementById('listing');
+const containers = document.querySelectorAll('.listing__list');
+
 let timeout = null;
+let taskTypeBeforeDrag;
+let taskTypeAfterDrag;
 
 window.addEventListener('load', () => {
   [addIcon, searchIcon].forEach(addClass);
@@ -55,6 +59,10 @@ formAdd.addEventListener('submit', (e) => {
   taskMenager.addTask(input.value);
   renderTasks(taskMenager.todoTasks, todoListing);
   input.value = '';
+});
+
+formSearch.addEventListener('submit', (e) => {
+  e.preventDefault();
 });
 
 formSearch.addEventListener('input', (e) => {
@@ -97,6 +105,17 @@ todoListing.addEventListener('click', (e) => {
     taskMenager.editTask(e.target.parentNode.parentNode, todoType);
     renderTasks(taskMenager.todoTasks, todoListing);
     renderTasks(taskMenager.doneTasks, doneListing);
+
+    const inputEdit = document.querySelector('.edit-box__input');
+    if (inputEdit) {
+      inputEdit.onkeydown = (e) => {
+        if (e.keyCode === 13) {
+          taskMenager.saveEditedTask(e.target.parentNode.parentNode, todoType, inputEdit.value);
+          renderTasks(taskMenager.todoTasks, todoListing);
+          renderTasks(taskMenager.doneTasks, doneListing);
+        }
+      };
+    }
   } else if (action === 'status') {
     taskMenager.changeStatusTask(e.target.parentNode, todoType);
     renderTasks(taskMenager.todoTasks, todoListing);
@@ -121,6 +140,17 @@ doneListing.addEventListener('click', (e) => {
     taskMenager.editTask(e.target.parentNode.parentNode, doneType);
     renderTasks(taskMenager.todoTasks, todoListing);
     renderTasks(taskMenager.doneTasks, doneListing);
+
+    const inputEdit = document.querySelector('.edit-box__input');
+    if (inputEdit) {
+      inputEdit.onkeydown = (e) => {
+        if (e.keyCode === 13) {
+          taskMenager.saveEditedTask(e.target.parentNode.parentNode, doneType, inputEdit.value);
+          renderTasks(taskMenager.todoTasks, todoListing);
+          renderTasks(taskMenager.doneTasks, doneListing);
+        }
+      };
+    }
   } else if (action === 'status') {
     taskMenager.changeStatusTask(e.target.parentNode, doneType);
     renderTasks(taskMenager.todoTasks, todoListing);
@@ -134,3 +164,63 @@ doneListing.addEventListener('click', (e) => {
     renderTasks(taskMenager.doneTasks, doneListing);
   }
 });
+
+containers.forEach((container) => {
+  container.addEventListener('mousedown', () => {
+    taskTypeBeforeDrag = container.id === 'todoListing' ? todoType : doneType;
+  });
+});
+
+listing.addEventListener('mousedown', () => {
+  const draggables = document.querySelectorAll('.listing__item');
+
+  draggables.forEach((draggable) => {
+    draggable.addEventListener('dragstart', () => {
+      addClass(draggable);
+    });
+
+    draggable.addEventListener('dragend', () => {
+      removeClass(draggable);
+    });
+  });
+
+  containers.forEach((container) => {
+    container.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(container, e.clientY);
+      const draggable = document.querySelector('.listing__item--dragging');
+
+      if (!afterElement) {
+        container.appendChild(draggable);
+      } else {
+        container.insertBefore(draggable, afterElement);
+      }
+    });
+
+    container.addEventListener('drop', (e) => {
+      e.stopImmediatePropagation();
+      const draggable = document.querySelector('.listing__item--dragging');
+      const afterElement = getDragAfterElement(container, e.clientY);
+      let indexAfterElement = !!afterElement ? afterElement.getAttribute('data-task-key') : null;
+      const indexItemBeforeDrag = draggable.getAttribute('data-task-key');
+      const indexItemAfterDrag = indexItemBeforeDrag < indexAfterElement ? --indexAfterElement : indexAfterElement;
+      taskTypeAfterDrag = container.id === 'todoListing' ? todoType : doneType;
+
+      taskMenager.moveTask(draggable, taskTypeBeforeDrag, taskTypeAfterDrag, indexItemAfterDrag);
+
+      renderTasks(taskMenager.todoTasks, todoListing);
+      renderTasks(taskMenager.doneTasks, doneListing);
+    });
+  });
+});
+
+function getDragAfterElement(container, currentYPos) {
+  const draggableElements = [...container.querySelectorAll('.listing__item:not(.listing__item--dragging)')];
+
+  return draggableElements
+    .filter((child) => {
+      const box = child.getBoundingClientRect();
+      return currentYPos <= box.top + box.height / 2;
+    })
+    .shift();
+}
