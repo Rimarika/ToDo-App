@@ -17,7 +17,7 @@ export const renderTasks = (data, container) => {
   container.textContent = '';
 
   data.forEach(({ name, isEdited, isCompleted }, key) => {
-    const form = `<form id="formEdit" class="edit-box">
+    const form = `<form id="formEdit" class="edit-box" onsubmit="return false;">
         <input class="edit-box__input" type="text" value="${name}"/>
         <div class="edit-box__buttons" data-task-key="${key}">
           <div class="button-box">
@@ -29,7 +29,7 @@ export const renderTasks = (data, container) => {
         </div>
       </form>`;
 
-    const element = `<li class="listing__item" data-task-key="${key}">
+    const element = `<li class="listing__item" data-task-key="${key}" data-class-toggle="listing__item--dragging" draggable="true">
       ${
         isEdited
           ? form

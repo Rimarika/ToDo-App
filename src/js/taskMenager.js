@@ -120,6 +120,30 @@ export default class TaskMenager {
       matchedDoneTasks,
     };
   };
+
+  moveTask = (task, taskTypeBeforeDrag, taskTypeAfterDrag, indexTaskAfterDrag) => {
+    const key = task.dataset.taskKey;
+    const tasks = this.getTasks(taskTypeBeforeDrag);
+
+    const element = tasks[key];
+    const { name, isCompleted } = element;
+
+    tasks.splice(key, 1);
+
+    const replacedTask = {
+      name,
+      isEdited: false,
+      isCompleted: taskTypeBeforeDrag !== taskTypeAfterDrag ? !isCompleted : isCompleted,
+    };
+
+    if (!indexTaskAfterDrag) {
+      this.getTasks(taskTypeAfterDrag).push(replacedTask);
+    } else {
+      this.getTasks(taskTypeAfterDrag).splice(indexTaskAfterDrag, 0, replacedTask);
+    }
+
+    this.setStoredState();
+  };
 }
 
 export { todoType, doneType };
